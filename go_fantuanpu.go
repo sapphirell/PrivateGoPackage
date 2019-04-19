@@ -1,26 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
-	"net/http"
+	"github.com/astaxie/beego"
 )
 
-func main() {
-	ping_fantuanpu()
-
+type MainController struct {
+	beego.Controller
 }
-func ping_fantuanpu() {
-	resp, err := http.Get("http://www.fantuanpu.com/ping")
-	if err != nil {
-		// handle error
-	}
 
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		// handle error
-	}
+func (this *MainController) Get() {
+	this.Ctx.WriteString("hello world")
+}
 
-	fmt.Println(string(body))
+func main() {
+	beego.Router("/", &MainController{})
+	beego.Run()
 }
